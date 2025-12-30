@@ -1,22 +1,22 @@
 [
   {
-    "Card": "Amazon",
-    "Bank": "Chase",
-    "Default": 1,
-    "Amazon.com": 3,
-    "Amazon Fresh": 3,
-    "Whole Foods": 3,
-    "Restaurants": 2,
-    "Gas": 2,
-    "Transit": 2
-  },
-  {
     "Card": "Amazon Prime",
     "Bank": "Chase",
     "Default": 1,
     "Amazon.com": 5,
     "Amazon Fresh": 5,
     "Whole Foods": 5,
+    "Restaurants": 2,
+    "Gas": 2,
+    "Transit": 2
+  },
+  {
+    "Card": "Amazon",
+    "Bank": "Chase",
+    "Default": 1,
+    "Amazon.com": 3,
+    "Amazon Fresh": 3,
+    "Whole Foods": 3,
     "Restaurants": 2,
     "Gas": 2,
     "Transit": 2
