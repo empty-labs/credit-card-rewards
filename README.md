@@ -4,6 +4,7 @@ This project is a resource for optimizing reward benefits based on your credit c
 
 # Streamlit App Link
 TODO: Swap link for new streamlit app
+
 [College Hoops Streamlit](https://credit-card-rewards-bjkxnhdsnkr2n6vrs9bkxg.streamlit.app/)
 
 ## Conda environment
