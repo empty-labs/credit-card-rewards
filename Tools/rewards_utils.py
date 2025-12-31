@@ -21,17 +21,35 @@ def prep_benefits_data():
     return data
 
 
-def determine_best_by_category(data: pd.DataFrame):
+def select_remaining_cards(card_names: list, selected_cards: list):
+    """Select remaining cards from data.
+
+    Args:
+        card_names (list): credit card list
+        selected_cards (list): list of cards selected by user
+
+    Returns:
+        remaining_cards (list): remaining cards from credit card list
+    """
+    if type(selected_cards) != list:
+        selected_cards = [selected_cards]
+
+    remaining_cards = [c for c in card_names if c not in selected_cards]
+    return remaining_cards
+
+def determine_best_by_category(data: pd.DataFrame, selected_cards: list):
     """Finds best credit card benefits based on category.
 
     Args:
         data (pd.DataFrame): credit card benefits data frame
+        selected_cards (list): list of cards selected by user
 
     Returns:
         results (pd.DataFrame): Best benefits data frame
     """
 
-    benefit_cols = data.columns.difference(META_COLS)
+    benefit_cols = data.columns.difference(META_COLS)  # All card benefit options
+    data = data[data["Card"].isin(selected_cards)]
 
     best_by_category = (
         data
