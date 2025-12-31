@@ -7,7 +7,7 @@ import streamlit as st
 
 # Page config
 st.set_page_config(
-    page_title="Credit Card Rewards ",
+    page_title="Credit Card Rewards",
     layout="centered"
 )
 
