@@ -6,7 +6,7 @@ sync_to_github:
   script:
     - git remote remove github || true
     - git remote add github https://$CI_PROJECT_NAMESPACE:$GITHUB_TOKEN@github.com/empty-labs/credit-card-rewards.git
-    - git push github HEAD:refs/heads/$CI_COMMIT_REF_NAME
-    - git push github --tags
+    - git push github HEAD:refs/heads/$CI_COMMIT_REF_NAME --force
+    - git push github --tags --force
   only:
     - main
