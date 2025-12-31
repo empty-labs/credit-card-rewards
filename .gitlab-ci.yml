@@ -6,6 +6,8 @@ sync_to_github:
   script:
     - git remote remove github || true
     - git remote add github https://$CI_PROJECT_NAMESPACE:$GITHUB_TOKEN@github.com/empty-labs/credit-card-rewards.git
+    # Amend the commit with a CI-specific message to ensure a new commit hash
+    - git commit --amend -m "$(git log -1 --pretty=%B) [ci skip] $(date +%s)" || echo "No changes to commit"
     - git push github HEAD:refs/heads/$CI_COMMIT_REF_NAME --force
     - git push github --tags --force
   only:
