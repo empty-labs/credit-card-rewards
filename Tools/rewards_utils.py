@@ -34,8 +34,10 @@ def select_remaining_cards(card_names: list, selected_cards: list):
     if type(selected_cards) != list:
         selected_cards = [selected_cards]
 
-    remaining_cards = [c for c in card_names if c not in selected_cards or c == "None"]
-    remaining_cards = list(set(remaining_cards))
+    remaining_cards = [c for c in card_names if c not in selected_cards and c != "None"]
+
+    # Prepend "None" to the top
+    remaining_cards = ["None"] + remaining_cards
 
     return remaining_cards
 
