@@ -16,12 +16,34 @@ st.title("💳 Credit Card Rewards Explorer")
 # Prep card options
 data = ru.prep_benefits_data()
 
-card_names = list(data["Card"])
+card_names = ["None"] + list(data["Card"])
+selected_cards = []
 
-selected_card = st.selectbox(
-    "Select a credit card:",
-    card_names
+selected_card_1 = st.selectbox(
+    "Select credit card #1:",
+    card_names,
+    index=0
 )
+
+selected_cards.append(selected_card_1)
+remaining_cards_2 = ru.select_remaining_cards(card_names, selected_cards)
+
+selected_card_2 = st.selectbox(
+    "Select credit card #2:",
+    remaining_cards_2,
+    index=0
+)
+
+selected_cards.append(selected_card_2)
+remaining_cards_3 = ru.select_remaining_cards(card_names, selected_cards)
+
+selected_card_3 = st.selectbox(
+    "Select credit card #3:",
+    remaining_cards_3,
+    index=0
+)
+
+selected_cards = [selected_card_1, selected_card_2, selected_card_3]
 
 # Run simulation
 run_button = st.button("Run Credit Card Rewards Explorer")
@@ -30,6 +52,9 @@ if run_button:
     st.subheader("Credit Card Rewards Results")
 
     with st.spinner("Simulating tournament..."):
-        rewards = ru.determine_best_by_category(data)
+        rewards = ru.determine_best_by_category(data, selected_cards)
 
-    st.dataframe(rewards, width='content')
+    if rewards is not None:
+        st.dataframe(rewards, width='content')
+    else:
+        st.markdown("No cards selected.")
