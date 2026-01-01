@@ -20,7 +20,7 @@ card_names = ["None"] + list(data["Card"])
 selected_cards = []
 
 selected_card_1 = st.selectbox(
-    "Select credit card #1:",
+    "Credit card #1:",
     card_names,
     index=0
 )
@@ -29,7 +29,7 @@ selected_cards.append(selected_card_1)
 remaining_cards_2 = ru.select_remaining_cards(card_names, selected_cards)
 
 selected_card_2 = st.selectbox(
-    "Select credit card #2:",
+    "Credit card #2:",
     remaining_cards_2,
     index=0
 )
@@ -38,7 +38,7 @@ selected_cards.append(selected_card_2)
 remaining_cards_3 = ru.select_remaining_cards(card_names, selected_cards)
 
 selected_card_3 = st.selectbox(
-    "Select credit card #3:",
+    "Credit card #3:",
     remaining_cards_3,
     index=0
 )
