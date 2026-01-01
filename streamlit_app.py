@@ -59,7 +59,17 @@ if run_button:
         rewards = ru.determine_best_by_category(data, selected_cards)
 
     if rewards is not None:
-        st.dataframe(rewards, width='content')
+        # st.dataframe(rewards, width='content')
+        st.dataframe(
+            rewards,
+            column_config={
+                "Max_Benefit": st.column_config.NumberColumn(
+                    "Max Benefit",
+                    format="%.0f%%"
+                )
+            },
+            width='content'
+        )
     else:
         st.markdown("No cards selected.")
 
