@@ -19,29 +19,33 @@ data = ru.prep_benefits_data()
 card_names = ["None"] + list(data["Card"])
 selected_cards = []
 
-selected_card_1 = st.selectbox(
-    "Select credit card #1:",
-    card_names,
-    index=0
-)
+col1, col2, col3 = st.columns(3)
+with col1:
+    selected_card_1 = st.selectbox(
+        "Credit card #1:",
+        card_names,
+        index=0
+    )
 
 selected_cards.append(selected_card_1)
 remaining_cards_2 = ru.select_remaining_cards(card_names, selected_cards)
 
-selected_card_2 = st.selectbox(
-    "Select credit card #2:",
-    remaining_cards_2,
-    index=0
-)
+with col2:
+    selected_card_2 = st.selectbox(
+        "Credit card #2:",
+        remaining_cards_2,
+        index=0
+    )
 
 selected_cards.append(selected_card_2)
 remaining_cards_3 = ru.select_remaining_cards(card_names, selected_cards)
 
-selected_card_3 = st.selectbox(
-    "Select credit card #3:",
-    remaining_cards_3,
-    index=0
-)
+with col3:
+    selected_card_3 = st.selectbox(
+        "Credit card #3:",
+        remaining_cards_3,
+        index=0
+    )
 
 selected_cards = [selected_card_1, selected_card_2, selected_card_3]
 
