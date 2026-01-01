@@ -49,7 +49,7 @@ selected_cards = [selected_card_1, selected_card_2, selected_card_3]
 run_button = st.button("Run Credit Card Rewards Explorer")
 
 if run_button:
-    st.subheader("Credit Card Rewards Results")
+    st.subheader("Selected Credit Card Rewards Results")
 
     with st.spinner("Simulating tournament..."):
         rewards = ru.determine_best_by_category(data, selected_cards)
@@ -58,3 +58,7 @@ if run_button:
         st.dataframe(rewards, width='content')
     else:
         st.markdown("No cards selected.")
+
+
+st.subheader("All Credit Card Rewards")
+st.dataframe(data, use_container_width=True)
