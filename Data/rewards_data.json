@@ -6,7 +6,7 @@
     "Amazon.com": 5,
     "Amazon Fresh": 5,
     "Whole Foods": 5,
-    "Restaurants": 2,
+    "Dining": 2,
     "Gas": 2,
     "Transit": 2
   },
@@ -17,7 +17,7 @@
     "Amazon.com": 3,
     "Amazon Fresh": 3,
     "Whole Foods": 3,
-    "Restaurants": 2,
+    "Dining": 2,
     "Gas": 2,
     "Transit": 2
   },
@@ -27,5 +27,20 @@
     "Default": 1.5,
     "HEB Brand": 5,
     "Favor": 2
+  },
+  {
+    "Card": "Citi Double Cash",
+    "Bank": "Citi",
+    "Default": 2,
+    "Travel": 5
+  },
+  {
+    "Card": "Wells Fargo Active Cash",
+    "Bank": "Wells Fargo",
+    "Notes": "Has 5% back on select quarterly categories",
+    "Default": 1,
+    "Dining": 3,
+    "Pharmacy": 3,
+    "Travel": 5
   }
 ]
