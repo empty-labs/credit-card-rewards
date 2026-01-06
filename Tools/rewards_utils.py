@@ -1,7 +1,18 @@
 import pandas as pd
 
 FILENAME = "Data/rewards_data.json"
-META_COLS = ["Card", "Bank", "Default"]
+META_COLS = ["Card", "Bank"]
+DEFAULT_MONTHLY_SPENDING = {
+    "Amazon.com": 200,
+    "Amazon Fresh": 30,
+    "Whole Foods": 50,
+    "Restaurants": 200,
+    "Gas": 250,
+    "Transit": 100,
+    "HEB Brand": 500,
+    "Favor": 100,
+    "Other": 1200
+}
 
 
 def prep_benefits_data():
@@ -26,6 +37,7 @@ def prep_benefits_data():
     data = data.sort_values(by="Avg_Benefit", ascending=False)
 
     return data
+
 
 def select_remaining_cards(card_names: list, selected_cards: list):
     """Select remaining cards from data.
@@ -70,7 +82,7 @@ def determine_best_by_category(data: pd.DataFrame, selected_cards: list):
         selected_cards (list): list of cards selected by user
 
     Returns:
-        results (pd.DataFrame): Best benefits data frame
+        best_by_category (pd.DataFrame): Best benefits data frame
     """
 
     benefit_cols = data.columns.difference(META_COLS)
@@ -103,3 +115,74 @@ def determine_best_by_category(data: pd.DataFrame, selected_cards: list):
     )
 
     return best_by_category
+
+
+def display_dollar_amounts(data: pd.DataFrame, columns: list):
+    """Display dollar amounts based on columns."""
+    for col in columns:
+        data = display_dollar_amount(data, col)
+    return data
+
+
+def display_percentages(data: pd.DataFrame, columns: list):
+    """Display percentages based on columns."""
+    for col in columns:
+        data = display_percentage(data, col)
+    return data
+
+
+def display_dollar_amount(data: pd.DataFrame, col_name: str):
+    """Display dollar amount of credit card benefits."""
+    data[col_name] = data[col_name].map(lambda x: f"${x:,.0f}")
+    return data
+
+
+def display_percentage(data: pd.DataFrame, col_name: str):
+    """Display percentage of credit card benefits."""
+    data[col_name] = data[col_name].map(lambda x: f"{x:.2f}%")
+    return data
+
+
+def optimize_card_benefits(data: pd.DataFrame, monthly_spending: dict):
+    """Optimize credit card benefits
+
+    Args:
+        data (pd.DataFrame): credit card benefits data frame
+        monthly_spending (dict): dictionary of user monthly spending selection
+
+    Returns:
+        optimized_cards (pd.DataFrame): Best benefits data frame
+    """
+
+    spending = monthly_spending.copy()
+
+    # Map user "Other" spending to card "Default"
+    if "Other" in spending:
+        spending["Default"] = spending.pop("Other")
+
+    scores = []
+
+    for _, row in data.iterrows():
+        total_reward = 0.0
+
+        for category, amount in spending.items():
+            if category in row:
+                total_reward += amount * row[category] * 0.01  # Convert int amount to percentage
+            else:
+                # fallback to Default if category missing
+                total_reward += amount * row["Default"] * 0.01  # Convert int amount to percentage
+
+        scores.append(total_reward)
+
+    optimized_cards = data.copy()
+    optimized_cards["Monthly_Value"] = scores
+    optimized_cards["Annual_Value"] = optimized_cards["Monthly_Value"] * 12
+
+    # Filter and sort by best value cards
+    optimized_cards = optimized_cards.sort_values("Monthly_Value", ascending=False)
+    optimized_cards = optimized_cards[["Card", "Bank", "Monthly_Value", "Annual_Value"]]
+
+    # Re-format value
+    optimized_cards = display_dollar_amounts(optimized_cards, ["Monthly_Value", "Annual_Value"])
+
+    return optimized_cards
