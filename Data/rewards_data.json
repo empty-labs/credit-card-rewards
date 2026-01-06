@@ -42,5 +42,38 @@
     "Dining": 3,
     "Pharmacy": 3,
     "Travel": 5
+  },
+  {
+    "Card": "Chase Freedom Unlimited",
+    "Bank": "Chase",
+    "Default": 1.5,
+    "Dining": 3,
+    "Pharmacy": 3,
+    "Travel": 5
+  },
+  {
+    "Card": "Capital One Savor Cash Rewards",
+    "Bank": "Capital One",
+    "Default": 1,
+    "Dining": 3,
+    "Travel": 5,
+    "Entertainment": 8,
+    "Streaming": 3,
+    "Groceries": 3
+  },
+  {
+    "Card": "Chase Sapphire Preferred",
+    "Bank": "Chase",
+    "Default": 1,
+    "Dining": 3,
+    "Travel": 5,
+    "Streaming": 3,
+    "Groceries": 3
+  },
+  {
+    "Card": "Discover it",
+    "Bank": "Chase",
+    "Notes": "Has 5% back on select quarterly categories up to $1500",
+    "Default": 1
   }
 ]
