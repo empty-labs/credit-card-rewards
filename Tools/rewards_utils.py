@@ -1,15 +1,16 @@
 import pandas as pd
 
 FILENAME = "Data/rewards_data.json"
-META_COLS = ["Card", "Bank"]
+META_COLS = ["Card", "Bank", "Notes"]
 DEFAULT_MONTHLY_SPENDING = {
+    "Gas": 250,
+    "Dining": 200,
+    "Pharmacy": 50,
+    "Transit": 100,
+    "Travel": 250,
     "Amazon.com": 200,
     "Amazon Fresh": 30,
     "Whole Foods": 50,
-    "Restaurants": 200,
-    "Gas": 250,
-    "Transit": 100,
-    "Travel": 250,
     "HEB Brand": 500,
     "Favor": 100,
     "Other": 1200

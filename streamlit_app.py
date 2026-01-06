@@ -86,7 +86,7 @@ for i, col in enumerate(cols):
             ))
             current_monthly_spending[sub] = monthly_spending_values[-1]
 
-st.markdown(f"## Total Monthly Spending: ${sum(monthly_spending_values)}")
+st.markdown(f"#### Total Monthly Spending: ${sum(monthly_spending_values)}")
 
 # Run simulation
 optimizer_run_button = st.button("Run Monthly Spending Optimizer")
@@ -104,6 +104,7 @@ if optimizer_run_button:
 
 benefit_cols = data.columns.difference(ru.META_COLS)
 formatted_data = ru.display_percentages(data, benefit_cols)
+formatted_data = formatted_data.drop(columns=['Notes'])
 
 st.subheader("All Credit Card Rewards")
 st.dataframe(formatted_data,
