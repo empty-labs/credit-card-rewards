@@ -9,6 +9,7 @@ DEFAULT_MONTHLY_SPENDING = {
     "Restaurants": 200,
     "Gas": 250,
     "Transit": 100,
+    "Travel": 250,
     "HEB Brand": 500,
     "Favor": 100,
     "Other": 1200
@@ -114,7 +115,22 @@ def determine_best_by_category(data: pd.DataFrame, selected_cards: list):
         axis=1
     )
 
+    # Re-format
+    best_by_category = display_percentage(best_by_category, "Max_Benefit")
+
     return best_by_category
+
+
+def display_dollar_amount(data: pd.DataFrame, col_name: str):
+    """Display dollar amount of credit card benefits."""
+    data[col_name] = data[col_name].map(lambda x: f"${x:,.0f}")
+    return data
+
+
+def display_percentage(data: pd.DataFrame, col_name: str):
+    """Display percentage of credit card benefits."""
+    data[col_name] = data[col_name].map(lambda x: f"{x:.2f}%")
+    return data
 
 
 def display_dollar_amounts(data: pd.DataFrame, columns: list):
@@ -128,18 +144,6 @@ def display_percentages(data: pd.DataFrame, columns: list):
     """Display percentages based on columns."""
     for col in columns:
         data = display_percentage(data, col)
-    return data
-
-
-def display_dollar_amount(data: pd.DataFrame, col_name: str):
-    """Display dollar amount of credit card benefits."""
-    data[col_name] = data[col_name].map(lambda x: f"${x:,.0f}")
-    return data
-
-
-def display_percentage(data: pd.DataFrame, col_name: str):
-    """Display percentage of credit card benefits."""
-    data[col_name] = data[col_name].map(lambda x: f"{x:.2f}%")
     return data
 
 
@@ -161,6 +165,7 @@ def optimize_card_benefits(data: pd.DataFrame, monthly_spending: dict):
         spending["Default"] = spending.pop("Other")
 
     scores = []
+    pct_savings = []
 
     for _, row in data.iterrows():
         total_reward = 0.0
@@ -173,16 +178,19 @@ def optimize_card_benefits(data: pd.DataFrame, monthly_spending: dict):
                 total_reward += amount * row["Default"] * 0.01  # Convert int amount to percentage
 
         scores.append(total_reward)
+        pct_savings.append(100 * total_reward / sum(spending.values()))
 
     optimized_cards = data.copy()
     optimized_cards["Monthly_Value"] = scores
     optimized_cards["Annual_Value"] = optimized_cards["Monthly_Value"] * 12
+    optimized_cards["Pct_Savings"] = pct_savings
 
     # Filter and sort by best value cards
     optimized_cards = optimized_cards.sort_values("Monthly_Value", ascending=False)
-    optimized_cards = optimized_cards[["Card", "Bank", "Monthly_Value", "Annual_Value"]]
+    optimized_cards = optimized_cards[["Card", "Bank", "Monthly_Value", "Annual_Value", "Pct_Savings"]]
 
     # Re-format value
     optimized_cards = display_dollar_amounts(optimized_cards, ["Monthly_Value", "Annual_Value"])
+    optimized_cards = display_percentage(optimized_cards, "Pct_Savings")
 
     return optimized_cards

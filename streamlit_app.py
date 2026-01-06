@@ -45,12 +45,6 @@ if run_button:
         st.dataframe(
             best_by_category,
             hide_index=True,
-            column_config={
-                "Max_Benefit": st.column_config.NumberColumn(
-                    "Max Benefit",
-                    format="%.0f%%"
-                )
-            },
             width='content'
         )
     else:
@@ -91,6 +85,8 @@ for i, col in enumerate(cols):
                 key=f"benefit_{sub}"
             ))
             current_monthly_spending[sub] = monthly_spending_values[-1]
+
+st.markdown(f"## Total Monthly Spending: ${sum(monthly_spending_values)}")
 
 # Run simulation
 optimizer_run_button = st.button("Run Monthly Spending Optimizer")
